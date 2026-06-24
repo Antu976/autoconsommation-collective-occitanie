@@ -5,7 +5,7 @@ Ce projet présente un prototype de dashboard BI permettant de suivre l’évolu
 L’objectif est de construire une chaîne simple de traitement et de visualisation de données :
 
 * nettoyage des données avec Python ;
-* préparation d’un fichier propre pour la BI ;
+* préparation d’un fichier propre pour Power BI ;
 * modélisation des données dans Power BI ;
 * création d’un dashboard interactif ;
 * analyse de l’évolution dans le temps et des différences entre régions.
@@ -15,9 +15,8 @@ L’objectif est de construire une chaîne simple de traitement et de visualisat
 L’autoconsommation collective permet à plusieurs acteurs situés dans un même périmètre géographique de partager une production locale d’électricité.
 
 Dans ce projet, les données utilisées sont des données publiques issues d’Enedis Open Data.
-Elles ne proviennent pas d’Enercoop ni d’Elocoop.
 
-Le projet est construit comme un prototype BI transposable à un outil de suivi d’indicateurs, par exemple pour analyser :
+Le projet est construit comme un prototype BI permettant de suivre des indicateurs liés au développement de l’autoconsommation collective en France, par exemple :
 
 * le nombre d’opérations actives ;
 * l’évolution trimestrielle ;
@@ -28,19 +27,15 @@ Le projet est construit comme un prototype BI transposable à un outil de suivi 
 
 Fichier brut :
 
-```text
 data/raw/autoconsommation_region.csv
-```
 
 Fichier nettoyé utilisé pour Power BI :
 
-```text
 data/processed/autoconsommation_region_clean.csv
-```
+
 
 Colonnes principales du fichier nettoyé :
 
-```text
 trimestre_date
 annee
 code_region
@@ -48,14 +43,13 @@ nom_region
 operations_actives
 valeur_operation_manquante
 periode
-```
+
 
 Les données sont agrégées par région et par trimestre.
 Une ligne ne correspond donc pas à une opération individuelle, mais à une observation agrégée pour une région à une période donnée.
 
 ## Structure du projet
 
-```text
 autoconsommation-collective-occitanie/
 │
 ├── data/
@@ -74,6 +68,7 @@ autoconsommation-collective-occitanie/
 │   └── autoconsommation_collective_dashboard_v2.pbix
 │
 ├── images/
+│   ├── dashboard_v1.png
 │   ├── dashboard_synthese_v2.png
 │   └── dashboard_analyse_regionale_v2.png
 │
@@ -82,7 +77,7 @@ autoconsommation-collective-occitanie/
 ├── app.py
 ├── requirements.txt
 └── README.md
-```
+
 
 ## Traitement des données avec Python
 
@@ -97,9 +92,7 @@ Le notebook Python permet de :
 
 Le fichier final utilisé dans Power BI est :
 
-```text
 data/processed/autoconsommation_region_clean.csv
-```
 
 ## Modèle de données Power BI
 
@@ -107,11 +100,10 @@ La version 2 du dashboard utilise un modèle de données en étoile.
 
 Le modèle est composé de trois tables principales :
 
-```text
 FactOperations
 DimRegion
 Dimdate
-```
+
 
 ### Table de faits : FactOperations
 
@@ -119,12 +111,11 @@ La table `FactOperations` contient les observations trimestrielles par région.
 
 Colonnes principales :
 
-```text
 trimestre_date
 code_region
 operations_actives
 valeur_operation_manquante
-```
+
 
 ### Dimension région : DimRegion
 
@@ -132,10 +123,9 @@ La table `DimRegion` contient les informations liées aux régions.
 
 Colonnes principales :
 
-```text
 code_region
 nom_region
-```
+
 
 ### Dimension temporelle : Dimdate
 
@@ -143,23 +133,21 @@ La table `Dimdate` est créée dans Power BI avec DAX à partir de `CALENDARAUTO
 
 Elle permet de structurer l’analyse temporelle avec :
 
-```text
 Date
 Année
 Mois
 Trimestre
 Periode
 Tri périodes
-```
+
 
 ### Relations du modèle
 
 Les relations utilisées sont :
 
-```text
 DimRegion[code_region] → FactOperations[code_region]
 Dimdate[Date] → FactOperations[trimestre_date]
-```
+
 
 Les dimensions filtrent la table de faits, ce qui permet d’analyser les opérations par région et dans le temps.
 
@@ -202,9 +190,7 @@ Cette page répond à la question suivante :
 
 Aperçu :
 
-```markdown
-![Page synthèse](images/dashboard_synthese_v2.png)
-```
+Page synthèse: (images/dashboard_synthese_v2.png)
 
 ### Page 2 — Analyse régionale avec focus Occitanie
 
@@ -216,7 +202,7 @@ Elle contient :
 * une courbe du taux d’évolution trimestriel pour la région sélectionnée ;
 * une courbe de référence fixe pour l’Occitanie.
 
-Cette page permet de comparer une région avec l’Occitanie, qui reste le territoire de référence du projet.
+Cette page permet de comparer une région sélectionnée avec l’Occitanie, qui est utilisée comme territoire de référence dans l’analyse.
 
 Elle répond à la question suivante :
 
@@ -224,23 +210,24 @@ Elle répond à la question suivante :
 
 Aperçu :
 
-```markdown
-![Page analyse régionale](images/dashboard_analyse_regionale_v2.png)
-```
+Page analyse régionale:(images/dashboard_analyse_regionale_v2.png)
 
 ## Versions du dashboard
 
 Deux versions du dashboard sont conservées dans le projet.
 
-```text
 dashboard/autoconsommation_collective_dashboard_v1.pbix
-```
+
 
 La version 1 correspond à une première version simple du rapport.
 
-```text
+Aperçu de la version 1 :
+
+Dashboard V1:(images/dashboard_v1.png)
+
+
 dashboard/autoconsommation_collective_dashboard_v2.pbix
-```
+
 
 La version 2 correspond à une version plus structurée avec :
 
@@ -252,46 +239,14 @@ La version 2 correspond à une version plus structurée avec :
 
 ## Technologies utilisées
 
-```text
+
 Python
 Pandas
 Jupyter Notebook
 Power BI
 DAX
 Git / GitHub
-```
 
-## Utilisation du projet
-
-Cloner le dépôt :
-
-```bash
-git clone https://github.com/Antu976/autoconsommation-collective-occitanie.git
-```
-
-Se placer dans le dossier du projet :
-
-```bash
-cd autoconsommation-collective-occitanie
-```
-
-Installer les dépendances Python :
-
-```bash
-pip install -r requirements.txt
-```
-
-Ouvrir le notebook principal :
-
-```text
-notebooks/01_analyse_autoconsommation.ipynb
-```
-
-Ouvrir le dashboard Power BI :
-
-```text
-dashboard/autoconsommation_collective_dashboard_v2.pbix
-```
 
 ## Limites du projet
 
@@ -299,10 +254,10 @@ Ce projet repose uniquement sur des données publiques agrégées.
 
 Les principales limites sont :
 
-* absence de données internes Enercoop ou Elocoop ;
 * absence d’informations détaillées sur les producteurs, consommateurs ou volumes d’énergie ;
 * analyse basée sur le nombre d’opérations actives, et non sur la puissance installée ou l’énergie autoconsommée ;
-* données agrégées par région et par trimestre.
+* données agrégées par région et par trimestre ;
+* absence d’analyse économique ou énergétique détaillée.
 
 Le projet doit donc être compris comme un prototype BI démontrant une démarche d’analyse, de modélisation et de visualisation.
 
@@ -324,5 +279,3 @@ Il met en avant les compétences suivantes :
 ## Source des données
 
 Données publiques issues d’Enedis Open Data.
-
-Les données utilisées dans ce projet ne proviennent pas d’Enercoop ni d’Elocoop.
