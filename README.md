@@ -48,36 +48,6 @@ periode
 Les données sont agrégées par région et par trimestre.
 Une ligne ne correspond donc pas à une opération individuelle, mais à une observation agrégée pour une région à une période donnée.
 
-## Structure du projet
-
-autoconsommation-collective-occitanie/
-│
-├── data/
-│   ├── raw/
-│   │   └── autoconsommation_region.csv
-│   │
-│   └── processed/
-│       └── autoconsommation_region_clean.csv
-│
-├── notebooks/
-│   ├── 01_analyse_autoconsommation.ipynb
-│   └── 02_visualisations_python.ipynb
-│
-├── dashboard/
-│   ├── autoconsommation_collective_dashboard_v1.pbix
-│   └── autoconsommation_collective_dashboard_v2.pbix
-│
-├── images/
-│   ├── dashboard_v1.png
-│   ├── dashboard_synthese_v2.png
-│   └── dashboard_analyse_regionale_v2.png
-│
-├── slides/
-│
-├── app.py
-├── requirements.txt
-└── README.md
-
 
 ## Traitement des données avec Python
 
