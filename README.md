@@ -105,7 +105,7 @@ DimRegion
 Dimdate
 
 
-### Table de faits : FactOperations
+#Table de faits : FactOperations
 
 La table `FactOperations` contient les observations trimestrielles par région.
 
@@ -172,7 +172,7 @@ Une mesure spécifique a été créée pour conserver l’Occitanie comme territ
 
 Le rapport Power BI est organisé en deux pages.
 
-### Page 1 — Synthèse globale
+### Page 1:Synthèse globale
 
 Cette page donne une vue d’ensemble de la situation sur la dernière période disponible.
 
@@ -192,7 +192,7 @@ Aperçu :
 
 Page synthèse: (images/dashboard_synthese_v2.png)
 
-### Page 2 — Analyse régionale avec focus Occitanie
+### Page 2:Analyse régionale avec focus Occitanie
 
 Cette page permet d’analyser la dynamique de croissance par région.
 
